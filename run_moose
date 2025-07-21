@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+
+nprocs=4
+source ~/.proteus_profile
+
+if [ $nprocs -gt 1 ]; then
+    echo "Number of processes ($nprocs) is greater than 2"
+    mpirun -np 224 proteus-opt --distributed-mesh -t -r 1 -i ~/proteus/examples/benchmark/diffusion_3D_32.i &> log.benchmark
+else
+    echo "Number of processes ($nprocs) is 2 or less"
+    proteus-opt  -i ~/proteus/examples/benchmark/diffusion_3D_32.i &> log.benchmark
+fi
+
